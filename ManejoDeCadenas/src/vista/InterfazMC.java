@@ -5,8 +5,28 @@
 package vista;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.KeyboardFocusManager;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.UIManager;
-
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
+import javax.swing.text.JTextComponent;
 /**
  *
  * @author guich
@@ -14,12 +34,14 @@ import javax.swing.UIManager;
 public class InterfazMC extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(InterfazMC.class.getName());
+    private File archivoActual = null;
 
-    /**
-     * Creates new form InterfazMC
-     */
+    
     public InterfazMC() {
         initComponents();
+        setSize(820,990);
+        setLocationRelativeTo(null);
+        setIconImage(new ImageIcon(getClass().getResource("/iconos/iconoVentanaPrincipal.png")).getImage());
     }
 
     /**
@@ -32,59 +54,70 @@ public class InterfazMC extends javax.swing.JFrame {
     private void initComponents() {
 
         panel_1 = new javax.swing.JPanel();
-        lbl_titulo = new javax.swing.JLabel();
-        lbl_1 = new javax.swing.JLabel();
+        lbl_titulo_1 = new javax.swing.JLabel();
+        lbl_texto_1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txta_1 = new javax.swing.JTextArea();
         btn_procesar = new javax.swing.JButton();
         lbl_mensaje_error = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
+        lbl_1 = new javax.swing.JLabel();
+        lbl_2 = new javax.swing.JLabel();
+        lbl_3 = new javax.swing.JLabel();
+        lbl_4 = new javax.swing.JLabel();
+        lbl_5 = new javax.swing.JLabel();
+        lbl_6 = new javax.swing.JLabel();
+        lbl_7 = new javax.swing.JLabel();
+        lbl_8 = new javax.swing.JLabel();
+        lbl_9 = new javax.swing.JLabel();
+        lbl_10 = new javax.swing.JLabel();
+        lbl_11 = new javax.swing.JLabel();
+        lbl_12 = new javax.swing.JLabel();
+        lbl_13 = new javax.swing.JLabel();
+        lbl_14 = new javax.swing.JLabel();
+        lbl_15 = new javax.swing.JLabel();
+        lbl_16 = new javax.swing.JLabel();
+        lbl_17 = new javax.swing.JLabel();
+        lbl_18 = new javax.swing.JLabel();
+        lbl_19 = new javax.swing.JLabel();
+        lbl_20 = new javax.swing.JLabel();
+        lbl_21 = new javax.swing.JLabel();
+        lbl_22 = new javax.swing.JLabel();
+        lbl_23 = new javax.swing.JLabel();
+        lbl_24 = new javax.swing.JLabel();
+        lbl_25 = new javax.swing.JLabel();
+        lbl_26 = new javax.swing.JLabel();
+        lbl_27 = new javax.swing.JLabel();
+        lbl_28 = new javax.swing.JLabel();
+        lbl_29 = new javax.swing.JLabel();
+        lbl_30 = new javax.swing.JLabel();
+        panel_2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txta_2 = new javax.swing.JTextArea();
+        lbl_titulo_2 = new javax.swing.JLabel();
         menu_bar = new javax.swing.JMenuBar();
         mb_archivo = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        mb_abrir = new javax.swing.JMenuItem();
+        mb_guardar = new javax.swing.JMenuItem();
+        mb_guardarcomo = new javax.swing.JMenuItem();
         mb_editar = new javax.swing.JMenu();
+        mb_copiar = new javax.swing.JMenuItem();
+        mb_cortar = new javax.swing.JMenuItem();
+        mb_pegar = new javax.swing.JMenuItem();
+        mb_buscar = new javax.swing.JMenuItem();
+        mb_reemplazar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Manejo de Cadenas");
+        setMaximumSize(new java.awt.Dimension(820, 990));
+        setMinimumSize(new java.awt.Dimension(820, 900));
 
         panel_1.setPreferredSize(new java.awt.Dimension(800, 300));
 
-        lbl_titulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbl_titulo.setText("Manejo de Cadenas");
+        lbl_titulo_1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbl_titulo_1.setText("Manejo de Cadenas");
 
-        lbl_1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lbl_1.setText("Ingrese un texto o abra un archivo:");
+        lbl_texto_1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lbl_texto_1.setText("Ingrese un texto o abra un archivo:");
 
         txta_1.setColumns(20);
         txta_1.setRows(5);
@@ -101,102 +134,102 @@ public class InterfazMC extends javax.swing.JFrame {
         lbl_mensaje_error.setForeground(new java.awt.Color(255, 0, 51));
         lbl_mensaje_error.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel1.setText("Longitud del Texto.........:");
+        lbl_1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_1.setText("Longitud del Texto.........:");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setText("0");
+        lbl_2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_2.setText("0");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setText("Total de Palabras............:");
+        lbl_3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_3.setText("Total de Palabras............:");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel4.setText("0");
+        lbl_4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_4.setText("0");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel5.setText("Primer Letra del Texto..:");
+        lbl_5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_5.setText("Primer Letra del Texto..:");
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel6.setText("0");
+        lbl_6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_6.setText("0");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel7.setText("Última Letra del Texto..:");
+        lbl_7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_7.setText("Última Letra del Texto..:");
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel8.setText("0");
+        lbl_8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_8.setText("0");
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel9.setText("Letra Central del Texto:");
+        lbl_9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_9.setText("Letra Central del Texto:");
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel10.setText("0");
+        lbl_10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_10.setText("0");
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel11.setText("Primera Palabra..............:");
+        lbl_11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_11.setText("Primera Palabra..............:");
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel12.setText("0");
+        lbl_12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_12.setText("0");
 
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel13.setText("Palabra Central...............:");
+        lbl_13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_13.setText("Palabra Central...............:");
 
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel14.setText("0");
+        lbl_14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_14.setText("0");
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel15.setText("Última Palabra................:");
+        lbl_15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_15.setText("Última Palabra................:");
 
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel16.setText("0");
+        lbl_16.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_16.setText("0");
 
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel17.setText("0");
+        lbl_17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbl_17.setText("Repeticiones de \"A\", \"a\", \"Á\", \"á\":");
 
-        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel18.setText("0");
+        lbl_18.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_18.setText("0");
 
-        jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel19.setText("0");
+        lbl_19.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbl_19.setText("Repeticiones de \"E\", \"e\", \"É\", \"é\":");
 
-        jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel20.setText("0");
+        lbl_20.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_20.setText("0");
 
-        jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel21.setText("Repeticiones de \"O\", \"o\", \"Ó\", \"ó\":");
+        lbl_21.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_21.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbl_21.setText("Repeticiones de \"I\", \"i\", \"Í\", \"í\":");
 
-        jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel22.setText("Repeticiones de \"U\", \"u\", \"Ú\", \"ú\":");
+        lbl_22.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_22.setText("0");
 
-        jLabel23.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel23.setText("0");
+        lbl_23.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_23.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbl_23.setText("Repeticiones de \"O\", \"o\", \"Ó\", \"ó\":");
 
-        jLabel24.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel24.setText("Repeticiones de \"E\", \"e\", \"É\", \"é\":");
+        lbl_24.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_24.setText("0");
 
-        jLabel25.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel25.setText("Repeticiones de \"A\", \"a\", \"Á\", \"á\":");
+        lbl_25.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_25.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbl_25.setText("Repeticiones de \"U\", \"u\", \"Ú\", \"ú\":");
 
-        jLabel26.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel26.setText("Repeticiones de \"I\", \"i\", \"Í\", \"í\":");
+        lbl_26.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_26.setText("0");
 
-        jLabel27.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel27.setText("Palabras con Cantidad de Caracteres Par:");
+        lbl_27.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_27.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbl_27.setText("Palabras con Cantidad de Caracteres Par:");
 
-        jLabel28.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel28.setText("0");
+        lbl_28.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_28.setText("0");
 
-        jLabel29.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel29.setText("Palabras con Cantidad de Caracteres Impar:");
+        lbl_29.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_29.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbl_29.setText("Palabras con Cantidad de Caracteres Impar:");
 
-        jLabel30.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel30.setText("0");
+        lbl_30.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_30.setText("0");
 
         javax.swing.GroupLayout panel_1Layout = new javax.swing.GroupLayout(panel_1);
         panel_1.setLayout(panel_1Layout);
@@ -205,96 +238,99 @@ public class InterfazMC extends javax.swing.JFrame {
             .addGroup(panel_1Layout.createSequentialGroup()
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_1Layout.createSequentialGroup()
-                        .addGap(296, 296, 296)
-                        .addComponent(lbl_titulo))
-                    .addGroup(panel_1Layout.createSequentialGroup()
-                        .addContainerGap(50, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_1)
+                            .addComponent(lbl_texto_1)
                             .addGroup(panel_1Layout.createSequentialGroup()
                                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(panel_1Layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
+                                        .addComponent(lbl_1)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(lbl_2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(panel_1Layout.createSequentialGroup()
-                                            .addComponent(jLabel5)
+                                            .addComponent(lbl_5)
                                             .addGap(18, 18, 18)
-                                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(lbl_6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(panel_1Layout.createSequentialGroup()
-                                            .addComponent(jLabel3)
+                                            .addComponent(lbl_3)
                                             .addGap(18, 18, 18)
-                                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(lbl_4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(panel_1Layout.createSequentialGroup()
-                                            .addComponent(jLabel9)
+                                            .addComponent(lbl_9)
                                             .addGap(18, 18, 18)
-                                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(lbl_10, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(panel_1Layout.createSequentialGroup()
-                                            .addComponent(jLabel7)
+                                            .addComponent(lbl_7)
                                             .addGap(18, 18, 18)
-                                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(lbl_8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(panel_1Layout.createSequentialGroup()
-                                                .addComponent(jLabel13)
+                                                .addComponent(lbl_13)
                                                 .addGap(18, 18, 18)
-                                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(lbl_14, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(panel_1Layout.createSequentialGroup()
-                                                .addComponent(jLabel11)
+                                                .addComponent(lbl_11)
                                                 .addGap(18, 18, 18)
-                                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(lbl_12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGroup(panel_1Layout.createSequentialGroup()
-                                            .addComponent(jLabel15)
+                                            .addComponent(lbl_15)
                                             .addGap(18, 18, 18)
-                                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(lbl_16, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(panel_1Layout.createSequentialGroup()
                                         .addGap(133, 133, 133)
-                                        .addComponent(jLabel25))
+                                        .addComponent(lbl_17))
                                     .addGroup(panel_1Layout.createSequentialGroup()
                                         .addGap(64, 64, 64)
-                                        .addComponent(jLabel29)
+                                        .addComponent(lbl_29)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(lbl_30, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lbl_18, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 711, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(panel_1Layout.createSequentialGroup()
-                                    .addComponent(jLabel24)
+                                    .addComponent(lbl_19)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lbl_20, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(panel_1Layout.createSequentialGroup()
-                                    .addComponent(jLabel26)
+                                    .addComponent(lbl_21)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lbl_22, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(panel_1Layout.createSequentialGroup()
-                                    .addComponent(jLabel21)
+                                    .addComponent(lbl_23)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lbl_24, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(panel_1Layout.createSequentialGroup()
-                                    .addComponent(jLabel22)
+                                    .addComponent(lbl_25)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lbl_26, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(panel_1Layout.createSequentialGroup()
-                                    .addComponent(jLabel27)
+                                    .addComponent(lbl_27)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(panel_1Layout.createSequentialGroup()
-                        .addGap(336, 336, 336)
-                        .addComponent(btn_procesar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lbl_28, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(panel_1Layout.createSequentialGroup()
                         .addGap(152, 152, 152)
                         .addComponent(lbl_mensaje_error, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_1Layout.createSequentialGroup()
+                        .addComponent(lbl_titulo_1)
+                        .addGap(318, 318, 318))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_1Layout.createSequentialGroup()
+                        .addComponent(btn_procesar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(356, 356, 356))))
         );
         panel_1Layout.setVerticalGroup(
             panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(lbl_titulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_1)
+                .addGap(20, 20, 20)
+                .addComponent(lbl_titulo_1)
+                .addGap(18, 18, 18)
+                .addComponent(lbl_texto_1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -305,65 +341,95 @@ public class InterfazMC extends javax.swing.JFrame {
                 .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_1Layout.createSequentialGroup()
                         .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
+                            .addComponent(lbl_1)
+                            .addComponent(lbl_2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
+                            .addComponent(lbl_3)
+                            .addComponent(lbl_4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
+                            .addComponent(lbl_5)
+                            .addComponent(lbl_6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8))
+                            .addComponent(lbl_7)
+                            .addComponent(lbl_8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10))
+                            .addComponent(lbl_9)
+                            .addComponent(lbl_10))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel12))
+                            .addComponent(lbl_11)
+                            .addComponent(lbl_12))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel14))
+                            .addComponent(lbl_13)
+                            .addComponent(lbl_14))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel15)
-                            .addComponent(jLabel16)))
+                            .addComponent(lbl_15)
+                            .addComponent(lbl_16)))
                     .addGroup(panel_1Layout.createSequentialGroup()
                         .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel25)
-                            .addComponent(jLabel18))
+                            .addComponent(lbl_17)
+                            .addComponent(lbl_18))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel17)
-                            .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lbl_20)
+                            .addComponent(lbl_19, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel26)
-                            .addComponent(jLabel23))
+                        .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_21, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbl_22))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel21)
-                            .addComponent(jLabel20))
+                        .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_23)
+                            .addComponent(lbl_24))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel22)
-                            .addComponent(jLabel19))
+                        .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_25)
+                            .addComponent(lbl_26))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel27)
-                            .addComponent(jLabel28))
+                        .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_27)
+                            .addComponent(lbl_28))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel29)
-                            .addComponent(jLabel30))))
+                        .addGroup(panel_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_29)
+                            .addComponent(lbl_30))))
                 .addContainerGap(49, Short.MAX_VALUE))
+        );
+
+        txta_2.setColumns(20);
+        txta_2.setRows(5);
+        jScrollPane2.setViewportView(txta_2);
+
+        lbl_titulo_2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbl_titulo_2.setText("Traducción Clave Murciélago");
+
+        javax.swing.GroupLayout panel_2Layout = new javax.swing.GroupLayout(panel_2);
+        panel_2.setLayout(panel_2Layout);
+        panel_2Layout.setHorizontalGroup(
+            panel_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_2Layout.createSequentialGroup()
+                .addGap(281, 281, 281)
+                .addComponent(lbl_titulo_2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_2Layout.createSequentialGroup()
+                .addContainerGap(50, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 717, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(51, Short.MAX_VALUE))
+        );
+        panel_2Layout.setVerticalGroup(
+            panel_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_2Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(lbl_titulo_2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(73, Short.MAX_VALUE))
         );
 
         menu_bar.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -371,18 +437,82 @@ public class InterfazMC extends javax.swing.JFrame {
 
         mb_archivo.setText("Archivo");
 
-        jMenuItem1.setText("jMenuItem1");
-        mb_archivo.add(jMenuItem1);
+        mb_abrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mb_abrir.setText("Abrir");
+        mb_abrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mb_abrirActionPerformed(evt);
+            }
+        });
+        mb_archivo.add(mb_abrir);
 
-        jMenuItem2.setText("jMenuItem2");
-        mb_archivo.add(jMenuItem2);
+        mb_guardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mb_guardar.setText("Guardar");
+        mb_guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mb_guardarActionPerformed(evt);
+            }
+        });
+        mb_archivo.add(mb_guardar);
 
-        jMenuItem3.setText("jMenuItem3");
-        mb_archivo.add(jMenuItem3);
+        mb_guardarcomo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F12, 0));
+        mb_guardarcomo.setText("Guardar Como");
+        mb_guardarcomo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mb_guardarcomoActionPerformed(evt);
+            }
+        });
+        mb_archivo.add(mb_guardarcomo);
 
         menu_bar.add(mb_archivo);
 
         mb_editar.setText("Editar");
+
+        mb_copiar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mb_copiar.setText("Copiar");
+        mb_copiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mb_copiarActionPerformed(evt);
+            }
+        });
+        mb_editar.add(mb_copiar);
+
+        mb_cortar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mb_cortar.setText("Cortar");
+        mb_cortar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mb_cortarActionPerformed(evt);
+            }
+        });
+        mb_editar.add(mb_cortar);
+
+        mb_pegar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mb_pegar.setText("Pegar");
+        mb_pegar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mb_pegarActionPerformed(evt);
+            }
+        });
+        mb_editar.add(mb_pegar);
+
+        mb_buscar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mb_buscar.setText("Buscar");
+        mb_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mb_buscarActionPerformed(evt);
+            }
+        });
+        mb_editar.add(mb_buscar);
+
+        mb_reemplazar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mb_reemplazar.setText("Reemplazar");
+        mb_reemplazar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mb_reemplazarActionPerformed(evt);
+            }
+        });
+        mb_editar.add(mb_reemplazar);
+
         menu_bar.add(mb_editar);
 
         setJMenuBar(menu_bar);
@@ -392,24 +522,303 @@ public class InterfazMC extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panel_1, javax.swing.GroupLayout.PREFERRED_SIZE, 811, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panel_2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panel_1, javax.swing.GroupLayout.DEFAULT_SIZE, 818, Short.MAX_VALUE))
+                .addGap(0, 2, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panel_1, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 115, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(panel_2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_procesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_procesarActionPerformed
-        // TODO add your handling code here:
-        
+        String texto = txta_1.getText();
+        String[] palabras = texto.trim().isEmpty() ? new String[0] : texto.trim().split("\\s+");
+        int longitud = texto.length();
+
+        // Estadísticas básicas
+        lbl_2.setText(String.valueOf(longitud));
+        lbl_4.setText(String.valueOf(palabras.length));
+        lbl_6.setText(longitud > 0 ? String.valueOf(texto.charAt(0)) : "0");
+        lbl_8.setText(longitud > 0 ? String.valueOf(texto.charAt(longitud - 1)) : "0");
+        lbl_10.setText(longitud > 0 ? String.valueOf(texto.charAt(longitud / 2)) : "0");
+
+        // Palabras clave
+        lbl_12.setText(palabras.length > 0 ? palabras[0] : "0");
+        lbl_14.setText(palabras.length > 0 ? palabras[palabras.length / 2] : "0");
+        lbl_16.setText(palabras.length > 0 ? palabras[palabras.length - 1] : "0");
+
+        // Repeticiones de vocales (incluye acentuadas)
+        int repA = 0, repE = 0, repI = 0, repO = 0, repU = 0;
+        for (char c : texto.toCharArray()) {
+            if ("AaÁá".indexOf(c) != -1) repA++;
+            if ("EeÉé".indexOf(c) != -1) repE++;
+            if ("IiÍí".indexOf(c) != -1) repI++;
+            if ("OoÓó".indexOf(c) != -1) repO++;
+            if ("UuÚú".indexOf(c) != -1) repU++;
+        }
+        lbl_18.setText(String.valueOf(repA));
+        lbl_20.setText(String.valueOf(repE));
+        lbl_22.setText(String.valueOf(repI));
+        lbl_24.setText(String.valueOf(repO));
+        lbl_26.setText(String.valueOf(repU));
+
+        // Palabras con cantidad de caracteres par/impar
+        int par = 0, impar = 0;
+        for (String palabra : palabras) {
+            if (palabra.length() % 2 == 0) par++;
+            else impar++;
+        }
+        lbl_28.setText(String.valueOf(par));
+        lbl_30.setText(String.valueOf(impar));
+
+        // Conversión a Clave Murciélago
+        String clave = texto;
+        clave = clave.replaceAll("(?i)m", "0");
+        clave = clave.replaceAll("(?i)u", "1");
+        clave = clave.replaceAll("(?i)r", "2");
+        clave = clave.replaceAll("(?i)c", "3");
+        clave = clave.replaceAll("(?i)i", "4");
+        clave = clave.replaceAll("(?i)e", "5");
+        clave = clave.replaceAll("(?i)l", "6");
+        clave = clave.replaceAll("(?i)a", "7");
+        clave = clave.replaceAll("(?i)g", "8");
+        clave = clave.replaceAll("(?i)o", "9");
+
+        txta_2.setText(clave);
     }//GEN-LAST:event_btn_procesarActionPerformed
+
+    private void mb_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mb_buscarActionPerformed
+        jf_buscar_reemplazar jfbr = new jf_buscar_reemplazar(this);
+        jfbr.setLocationRelativeTo(null);
+        jfbr.mostrarBuscar();
+        jfbr.setVisible(true);
+    }//GEN-LAST:event_mb_buscarActionPerformed
+
+    private void mb_copiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mb_copiarActionPerformed
+       Component foco = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
+
+       if (foco instanceof JTextComponent) {
+            JTextComponent campoTexto = (JTextComponent) foco;
+            String textoSeleccionado = campoTexto.getSelectedText();
+
+                if (textoSeleccionado != null && !textoSeleccionado.isEmpty()) {
+                    StringSelection seleccion = new StringSelection(textoSeleccionado);
+                    Clipboard portapapeles = Toolkit.getDefaultToolkit().getSystemClipboard();
+                    portapapeles.setContents(seleccion, null);
+                }
+       }
+    }//GEN-LAST:event_mb_copiarActionPerformed
+
+    private void mb_cortarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mb_cortarActionPerformed
+        Component foco = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
+
+        if (foco instanceof JTextComponent) {
+            JTextComponent campoTexto = (JTextComponent) foco;
+            String textoSeleccionado = campoTexto.getSelectedText();
+
+            if (textoSeleccionado != null && !textoSeleccionado.isEmpty()) {
+               
+                StringSelection seleccion = new StringSelection(textoSeleccionado);
+                Clipboard portapapeles = Toolkit.getDefaultToolkit().getSystemClipboard();
+                portapapeles.setContents(seleccion, null);
+
+                
+                try {
+                    int inicio = campoTexto.getSelectionStart();
+                    int longitud = textoSeleccionado.length();
+                    campoTexto.getDocument().remove(inicio, longitud);
+                } catch (BadLocationException ex) {
+                    
+                }
+            }
+        }
+    }//GEN-LAST:event_mb_cortarActionPerformed
+
+    private void mb_abrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mb_abrirActionPerformed
+        JFileChooser fc = new JFileChooser();
+        fc.setDialogTitle("Abrir archivo de texto");
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos de texto (*.txt)", "txt");
+        fc.setFileFilter(filtro);
+
+        int resultado = fc.showOpenDialog(this);
+
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            File archivo = fc.getSelectedFile();
+            
+            archivoActual = archivo;
+
+            
+            try (BufferedReader lector = new BufferedReader(new FileReader(archivo))) {
+                StringBuilder contenido = new StringBuilder();
+                String linea;
+
+                while ((linea = lector.readLine()) != null) {
+                    contenido.append(linea).append("\n");
+                }
+
+                txta_1.setText(contenido.toString());
+                lbl_mensaje_error.setText(""); 
+
+            } catch (IOException e) {
+                lbl_mensaje_error.setText("Error al leer el archivo: " + e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_mb_abrirActionPerformed
+
+    private void mb_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mb_guardarActionPerformed
+        try {
+       
+            if (archivoActual == null) {
+                JFileChooser fc = new JFileChooser();
+                fc.setDialogTitle("Guardar como...");
+                FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos de texto (*.txt)", "txt");
+                fc.setFileFilter(filtro);
+
+            int resultado = fc.showSaveDialog(this);
+
+            if (resultado == JFileChooser.APPROVE_OPTION) {
+                archivoActual = fc.getSelectedFile();
+
+                
+                if (!archivoActual.getName().toLowerCase().endsWith(".txt")) {
+                    archivoActual = new File(archivoActual.getAbsolutePath() + ".txt");
+                }
+            } else {
+                lbl_mensaje_error.setText("Guardado cancelado.");
+                return;
+            }
+        }
+
+        
+        StringBuilder cont = new StringBuilder();
+
+        cont.append(lbl_titulo_1.getText()).append("\n");
+        
+        cont.append(txta_1.getText()).append("\n");
+        
+        cont.append("--------------------------------------------------------------\n");
+        for (int i = 1; i <= 30; i += 2) {
+            JLabel lblTexto = (JLabel) this.getClass().getDeclaredField("lbl_" + i).get(this);
+            JLabel lblValor = (JLabel) this.getClass().getDeclaredField("lbl_" + (i + 1)).get(this);
+
+            cont.append(lblTexto.getText()).append(" ").append(lblValor.getText()).append("\n");
+        }
+
+        cont.append("--------------------------------------------------------------\n");
+
+        cont.append(lbl_titulo_2.getText()).append("\n");
+        cont.append(txta_2.getText()).append("\n");
+
+       
+        try (BufferedWriter escritor = new BufferedWriter(new FileWriter(archivoActual))) {
+            escritor.write(cont.toString());
+        }
+
+        lbl_mensaje_error.setText("");
+
+        } catch (IOException e) {
+        lbl_mensaje_error.setText("Error al guardar el archivo: " + e.getMessage());
+        } catch (Exception e) {
+        lbl_mensaje_error.setText("Error inesperado: " + e.getMessage());
+        }
+    }//GEN-LAST:event_mb_guardarActionPerformed
+
+    private void mb_guardarcomoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mb_guardarcomoActionPerformed
+        try {
+        // Crear selector de archivos
+        JFileChooser fc = new JFileChooser();
+        fc.setDialogTitle("Guardar como...");
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos de texto (*.txt)", "txt");
+        fc.setFileFilter(filtro);
+
+        int resultado = fc.showSaveDialog(this);
+
+        if (resultado != JFileChooser.APPROVE_OPTION) {
+            lbl_mensaje_error.setText("Guardado cancelado.");
+            return;
+        }
+
+        File nuevoArchivo = fc.getSelectedFile();
+
+        // Asegurar extensión .txt
+        if (!nuevoArchivo.getName().toLowerCase().endsWith(".txt")) {
+            nuevoArchivo = new File(nuevoArchivo.getAbsolutePath() + ".txt");
+        }
+
+        // Construir contenido
+        StringBuilder cont = new StringBuilder();
+
+       
+        cont.append("        ").append(lbl_titulo_1.getText()).append("\n");
+        cont.append("--------------------------------------------------------------\n");
+
+        cont.append(txta_1.getText()).append("\n\n");
+
+        cont.append("--------------------------------------------------------------\n");
+
+        for (int i = 1; i <= 30; i += 2) {
+            JLabel lblTexto = (JLabel) this.getClass().getDeclaredField("lbl_" + i).get(this);
+            JLabel lblValor = (JLabel) this.getClass().getDeclaredField("lbl_" + (i + 1)).get(this);
+     
+
+            cont.append(lblTexto.getText()).append(" ").append(lblValor.getText()).append("\n");
+        }
+        cont.append("--------------------------------------------------------------\n");
+        cont.append("       ").append(lbl_titulo_2.getText()).append("\n");
+        cont.append(txta_2.getText()).append("\n");
+
+        // Guardar archivo
+        try (BufferedWriter escritor = new BufferedWriter(new FileWriter(nuevoArchivo))) {
+            escritor.write(cont.toString());
+        }
+
+        lbl_mensaje_error.setText("Archivo guardado exitosamente.");
+
+        } catch (IOException e) {
+            lbl_mensaje_error.setText("Error al guardar el archivo: " + e.getMessage());
+        } catch (Exception e) {
+            lbl_mensaje_error.setText("Error inesperado: " + e.getMessage());
+        }
+    }//GEN-LAST:event_mb_guardarcomoActionPerformed
+
+    private void mb_pegarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mb_pegarActionPerformed
+        Component foco = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
+
+        if (foco instanceof JTextComponent) {
+            JTextComponent campoTexto = (JTextComponent) foco;
+            Clipboard portapapeles = Toolkit.getDefaultToolkit().getSystemClipboard();
+
+            try {
+                String texto = (String) portapapeles.getData(DataFlavor.stringFlavor);
+
+                if (texto != null && !texto.isEmpty()) {
+                    int inicio = campoTexto.getSelectionStart();
+                    int fin = campoTexto.getSelectionEnd();
+
+                    
+                    campoTexto.getDocument().remove(inicio, fin - inicio);
+                    campoTexto.getDocument().insertString(inicio, texto, null);
+                }
+            } catch (Exception ex) {
+              
+            }
+        }
+    }//GEN-LAST:event_mb_pegarActionPerformed
+
+    private void mb_reemplazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mb_reemplazarActionPerformed
+        jf_buscar_reemplazar jfbr = new jf_buscar_reemplazar(this);
+        jfbr.setLocationRelativeTo(null);
+        jfbr.mostrarReemplazar();
+        jfbr.setVisible(true);
+    }//GEN-LAST:event_mb_reemplazarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -442,47 +851,56 @@ public class InterfazMC extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_procesar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbl_1;
+    private javax.swing.JLabel lbl_10;
+    private javax.swing.JLabel lbl_11;
+    private javax.swing.JLabel lbl_12;
+    private javax.swing.JLabel lbl_13;
+    private javax.swing.JLabel lbl_14;
+    private javax.swing.JLabel lbl_15;
+    private javax.swing.JLabel lbl_16;
+    private javax.swing.JLabel lbl_17;
+    private javax.swing.JLabel lbl_18;
+    private javax.swing.JLabel lbl_19;
+    private javax.swing.JLabel lbl_2;
+    private javax.swing.JLabel lbl_20;
+    private javax.swing.JLabel lbl_21;
+    private javax.swing.JLabel lbl_22;
+    private javax.swing.JLabel lbl_23;
+    private javax.swing.JLabel lbl_24;
+    private javax.swing.JLabel lbl_25;
+    private javax.swing.JLabel lbl_26;
+    private javax.swing.JLabel lbl_27;
+    private javax.swing.JLabel lbl_28;
+    private javax.swing.JLabel lbl_29;
+    private javax.swing.JLabel lbl_3;
+    private javax.swing.JLabel lbl_30;
+    private javax.swing.JLabel lbl_4;
+    private javax.swing.JLabel lbl_5;
+    private javax.swing.JLabel lbl_6;
+    private javax.swing.JLabel lbl_7;
+    private javax.swing.JLabel lbl_8;
+    private javax.swing.JLabel lbl_9;
     private javax.swing.JLabel lbl_mensaje_error;
-    private javax.swing.JLabel lbl_titulo;
+    private javax.swing.JLabel lbl_texto_1;
+    private javax.swing.JLabel lbl_titulo_1;
+    private javax.swing.JLabel lbl_titulo_2;
+    private javax.swing.JMenuItem mb_abrir;
     private javax.swing.JMenu mb_archivo;
+    private javax.swing.JMenuItem mb_buscar;
+    private javax.swing.JMenuItem mb_copiar;
+    private javax.swing.JMenuItem mb_cortar;
     private javax.swing.JMenu mb_editar;
+    private javax.swing.JMenuItem mb_guardar;
+    private javax.swing.JMenuItem mb_guardarcomo;
+    private javax.swing.JMenuItem mb_pegar;
+    private javax.swing.JMenuItem mb_reemplazar;
     private javax.swing.JMenuBar menu_bar;
     private javax.swing.JPanel panel_1;
-    private javax.swing.JTextArea txta_1;
+    private javax.swing.JPanel panel_2;
+    public javax.swing.JTextArea txta_1;
+    private javax.swing.JTextArea txta_2;
     // End of variables declaration//GEN-END:variables
 }
